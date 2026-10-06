@@ -6,13 +6,11 @@
 <title>مدرسه والفجر</title>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#2196f3">
-<link rel="apple-touch-icon" href="icon-192.png">
 <link rel="icon" type="image/png" href="icon-192.png">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: Tahoma, Arial, sans-serif; }
 body { background: #ffffff; color: #222; overflow-x: hidden; }
 
-/* نوار بالا */
 nav {
   position: fixed; top: 0; width: 100%; padding: 12px 20px;
   display: flex; justify-content: space-between; align-items: center;
@@ -27,7 +25,6 @@ nav {
   padding: 8px 16px; border-radius: 20px; font-weight: bold; border: none;
   cursor: pointer; font-size: 0.85rem; font-family: inherit; }
 
-/* کره سه‌بعدی */
 .sphere-wrap { width: 240px; height: 240px; perspective: 1000px; margin: 30px auto 0; }
 .sphere { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; animation: spin 15s linear infinite; }
 .ring { position: absolute; top: 50%; left: 50%; border: 2px solid #000; border-radius: 50%; box-shadow: 0 0 20px rgba(0,0,0,0.6); }
@@ -42,7 +39,6 @@ nav {
 @keyframes spin { from { transform: rotateY(0) rotateX(10deg); } to { transform: rotateY(360deg) rotateX(10deg); } }
 @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.15); } }
 
-/* صفحه اصلی */
 .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center;
   flex-direction: column; padding: 100px 20px 40px; text-align: center;
   background: radial-gradient(circle at center, rgba(33,150,243,0.08), transparent 70%); }
@@ -66,7 +62,6 @@ nav {
 .title span { color: #2196f3; }
 .subtitle { text-align: center; color: #777; margin-bottom: 40px; font-size: 0.9rem; }
 
-/* ویدیوها */
 .videos { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; max-width: 1100px; margin: 0 auto; }
 .video { background: #fff; border: 2px solid #e0e0e0; border-radius: 12px; overflow: hidden;
   transition: 0.3s; box-shadow: 0 3px 10px rgba(0,0,0,0.05); }
@@ -83,7 +78,6 @@ nav {
 .video-info .meta { display: flex; justify-content: space-between; color: #888; font-size: 0.75rem; margin-bottom: 10px; }
 .video-info .green { color: #4caf50; font-weight: bold; }
 
-/* کارنامه */
 .report-search { max-width: 500px; margin: 0 auto 30px; display: flex; gap: 10px; }
 .report-search input { flex: 1; padding: 12px 18px; border: 2px solid #e0e0e0;
   border-radius: 25px; font-family: inherit; font-size: 0.9rem; outline: none; }
@@ -106,7 +100,6 @@ nav {
 .score-mid { color: #ff9800; font-weight: bold; }
 .score-bad { color: #f44336; font-weight: bold; }
 
-/* مودال */
 .modal { display: none; position: fixed; inset: 0;
   background: rgba(0,0,0,0.7); z-index: 2000;
   align-items: center; justify-content: center; padding: 20px; }
@@ -114,16 +107,14 @@ nav {
 .modal-box { background: #fff; border-radius: 15px; padding: 30px;
   max-width: 400px; width: 100%; max-height: 90vh; overflow-y: auto; }
 .modal-box h3 { color: #2196f3; margin-bottom: 20px; text-align: center; }
-.modal-box input, .modal-box textarea, .modal-box select {
-  width: 100%; padding: 12px 15px; margin-bottom: 12px;
+.modal-box input { width: 100%; padding: 12px 15px; margin-bottom: 12px;
   border: 2px solid #e0e0e0; border-radius: 10px;
-  font-family: inherit; font-size: 0.9rem; outline: none; background: #fff; }
+  font-family: inherit; font-size: 0.9rem; outline: none; }
 .modal-box input:focus { border-color: #2196f3; }
 .modal-box label { display: block; margin-bottom: 5px; font-size: 0.85rem; color: #444; font-weight: bold; }
 .modal-box .btn-group { display: flex; gap: 10px; margin-top: 15px; }
 .modal-box .btn-group .btn { flex: 1; }
 
-/* پنل مدیر */
 .admin-panel { display: none; padding: 100px 20px 40px; min-height: 100vh; background: #f5f9ff; }
 .admin-panel.show { display: block; }
 .admin-header { background: linear-gradient(135deg, #2196f3, #1976d2);
@@ -187,20 +178,19 @@ footer .copy { margin-top: 20px; padding-top: 20px; border-top: 1px solid #ddd; 
 <nav>
   <div class="logo">والفجر</div>
   <div class="nav-links">
-    <a onclick="scrollTo('home')">خانه</a>
-    <a onclick="scrollTo('videos')">فیلم‌ها</a>
-    <a onclick="scrollTo('report')">کارنامه</a>
-    <button class="admin-btn" onclick="openLogin()">ورود مدیر</button>
+    <a id="nav-home">خانه</a>
+    <a id="nav-videos">فیلم‌ها</a>
+    <a id="nav-report">کارنامه</a>
+    <button class="admin-btn" id="btn-login">ورود مدیر</button>
   </div>
 </nav>
 
-<!-- صفحه اصلی -->
 <section class="hero" id="home">
   <h1>مدرسه <span>والفجر</span></h1>
   <p>پلتفرم آموزشی مدرسه والفجر — فیلم‌های آموزشی و کارنامه دانش‌آموزان</p>
   <div>
-    <button class="btn" onclick="scrollTo('videos')">🎬 مشاهده فیلم‌ها</button>
-    <button class="btn btn-green" onclick="scrollTo('report')">📊 مشاهده کارنامه</button>
+    <button class="btn" id="btn-videos">🎬 مشاهده فیلم‌ها</button>
+    <button class="btn btn-green" id="btn-report">📊 مشاهده کارنامه</button>
   </div>
   <div class="sphere-wrap">
     <div class="sphere">
@@ -214,34 +204,31 @@ footer .copy { margin-top: 20px; padding-top: 20px; border-top: 1px solid #ddd; 
   </div>
 </section>
 
-<!-- بخش فیلم‌ها -->
 <section class="section" id="videos">
   <h2 class="title">فیلم‌های <span>آموزشی</span></h2>
   <p class="subtitle">فیلم‌های آپلود شده توسط مدیر مدرسه</p>
   <div class="videos" id="videosList"></div>
 </section>
 
-<!-- بخش کارنامه -->
 <section class="section" id="report" style="background: linear-gradient(135deg, rgba(33,150,243,0.05), rgba(76,175,80,0.05));">
   <h2 class="title">مشاهده <span>کارنامه</span></h2>
   <p class="subtitle">کد ملی خود را وارد کنید</p>
   <div class="report-search">
     <input type="text" id="reportSearch" placeholder="کد ملی دانش‌آموز..." />
-    <button class="btn" onclick="searchReport()">جستجو</button>
+    <button class="btn" id="btn-search">جستجو</button>
   </div>
   <div class="report-card" id="reportCard"></div>
 </section>
 
-<!-- پنل مدیر -->
 <div class="admin-panel" id="adminPanel">
   <div class="admin-header">
     <h2>👨‍💼 پنل مدیریت</h2>
-    <button class="btn btn-red btn-small" onclick="logout()">خروج</button>
+    <button class="btn btn-red btn-small" id="btn-logout">خروج</button>
   </div>
 
   <div class="tabs">
-    <button class="tab active" onclick="switchTab('tab-videos', this)">🎬 مدیریت فیلم‌ها</button>
-    <button class="tab" onclick="switchTab('tab-reports', this)">📊 مدیریت کارنامه‌ها</button>
+    <button class="tab active" id="tab-btn-videos">🎬 مدیریت فیلم‌ها</button>
+    <button class="tab" id="tab-btn-reports">📊 مدیریت کارنامه‌ها</button>
   </div>
 
   <div class="tab-content active" id="tab-videos">
@@ -264,7 +251,7 @@ footer .copy { margin-top: 20px; padding-top: 20px; border-top: 1px solid #ddd; 
           </select>
         </div>
       </div>
-      <button class="btn btn-green" onclick="addVideo()" style="width:100%; margin-top:10px;">➕ افزودن فیلم</button>
+      <button class="btn btn-green" id="btn-add-video" style="width:100%; margin-top:10px;">➕ افزودن فیلم</button>
     </div>
     <h3 style="color:#2196f3; margin-bottom:15px;">📹 فیلم‌های ثبت شده</h3>
     <div class="admin-list" id="adminVideosList"></div>
@@ -300,34 +287,32 @@ footer .copy { margin-top: 20px; padding-top: 20px; border-top: 1px solid #ddd; 
           <input type="number" class="grade-score" placeholder="نمره" value="18" min="0" max="20" />
         </div>
       </div>
-      <button class="btn btn-outline btn-small" onclick="addGradeRow()" style="margin-bottom:15px;">+ افزودن درس</button>
-      <button class="btn btn-green" onclick="addReport()" style="width:100%;">💾 ثبت کارنامه</button>
+      <button class="btn btn-outline btn-small" id="btn-add-grade" style="margin-bottom:15px;">+ افزودن درس</button>
+      <button class="btn btn-green" id="btn-add-report" style="width:100%;">💾 ثبت کارنامه</button>
     </div>
     <h3 style="color:#2196f3; margin-bottom:15px;">📋 کارنامه‌های ثبت شده</h3>
     <div class="admin-list" id="adminReportsList"></div>
   </div>
 </div>
 
-<!-- مودال ورود -->
 <div class="modal" id="loginModal">
   <div class="modal-box">
     <h3>🔐 ورود مدیر</h3>
     <label>رمز عبور</label>
     <input type="password" id="adminPass" placeholder="رمز عبور" />
     <div class="btn-group">
-      <button class="btn btn-outline" onclick="closeLogin()">انصراف</button>
-      <button class="btn" onclick="checkLogin()">ورود</button>
+      <button class="btn btn-outline" id="btn-cancel-login">انصراف</button>
+      <button class="btn" id="btn-check-login">ورود</button>
     </div>
     <p style="text-align:center; color:#999; font-size:0.8rem; margin-top:15px;">رمز پیش‌فرض: fajr1404</p>
   </div>
 </div>
 
-<!-- مودال پخش فیلم -->
 <div class="modal" id="playModal">
   <div class="modal-box" style="max-width:700px;">
     <h3 id="playTitle">پخش فیلم</h3>
     <div id="playerArea" style="margin-bottom:15px;"></div>
-    <button class="btn btn-outline" onclick="closePlay()" style="width:100%;">بستن</button>
+    <button class="btn btn-outline" id="btn-close-play" style="width:100%;">بستن</button>
   </div>
 </div>
 
@@ -340,13 +325,12 @@ footer .copy { margin-top: 20px; padding-top: 20px; border-top: 1px solid #ddd; 
 </footer>
 
 <script>
-// ==================== متغیرها ====================
+// ============ متغیرها ============
 var ADMIN_PASS = 'fajr1404';
 var videos = [];
 var reports = [];
 var isAdmin = false;
 
-// ==================== بارگذاری داده‌ها ====================
 try {
   videos = JSON.parse(localStorage.getItem('fajr_videos') || '[]');
   reports = JSON.parse(localStorage.getItem('fajr_reports') || '[]');
@@ -359,29 +343,33 @@ function saveData() {
   } catch(e) { notif('خطا در ذخیره‌سازی', true); }
 }
 
-// ==================== نوتیفیکیشن ====================
 function notif(msg, error) {
   var n = document.getElementById('notif');
+  if (!n) return;
   n.textContent = msg;
   n.className = 'notif show' + (error ? ' error' : '');
   setTimeout(function() { n.classList.remove('show'); }, 2500);
 }
 
-// ==================== اسکرول نرم ====================
-function scrollTo(id) {
+function scrollToSection(id) {
   var el = document.getElementById(id);
   if (el) el.scrollIntoView({ behavior: 'smooth' });
 }
 
-// ==================== ورود مدیر ====================
+// ============ ورود مدیر ============
 function openLogin() {
   if (isAdmin) { showPanel(); return; }
-  document.getElementById('loginModal').classList.add('show');
+  var modal = document.getElementById('loginModal');
+  if (modal) modal.classList.add('show');
 }
+
 function closeLogin() {
-  document.getElementById('loginModal').classList.remove('show');
-  document.getElementById('adminPass').value = '';
+  var modal = document.getElementById('loginModal');
+  if (modal) modal.classList.remove('show');
+  var pass = document.getElementById('adminPass');
+  if (pass) pass.value = '';
 }
+
 function checkLogin() {
   var pass = document.getElementById('adminPass').value;
   if (pass === ADMIN_PASS) {
@@ -393,32 +381,41 @@ function checkLogin() {
     notif('❌ رمز عبور اشتباه است', true);
   }
 }
+
 function showPanel() {
-  document.getElementById('adminPanel').classList.add('show');
-  document.querySelector('.hero').style.display = 'none';
+  var panel = document.getElementById('adminPanel');
+  if (panel) panel.classList.add('show');
+  var hero = document.querySelector('.hero');
+  if (hero) hero.style.display = 'none';
   document.querySelectorAll('.section').forEach(function(s) { s.style.display = 'none'; });
-  document.querySelector('footer').style.display = 'none';
+  var footer = document.querySelector('footer');
+  if (footer) footer.style.display = 'none';
   renderAdminVideos();
   renderAdminReports();
   window.scrollTo(0, 0);
 }
+
 function logout() {
   isAdmin = false;
-  document.getElementById('adminPanel').classList.remove('show');
-  document.querySelector('.hero').style.display = 'flex';
+  var panel = document.getElementById('adminPanel');
+  if (panel) panel.classList.remove('show');
+  var hero = document.querySelector('.hero');
+  if (hero) hero.style.display = 'flex';
   document.querySelectorAll('.section').forEach(function(s) { s.style.display = 'block'; });
-  document.querySelector('footer').style.display = 'block';
+  var footer = document.querySelector('footer');
+  if (footer) footer.style.display = 'block';
   notif('از پنل خارج شدید');
 }
 
 function switchTab(id, btn) {
   document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
   document.querySelectorAll('.tab-content').forEach(function(t) { t.classList.remove('active'); });
-  btn.classList.add('active');
-  document.getElementById(id).classList.add('active');
+  if (btn) btn.classList.add('active');
+  var tab = document.getElementById(id);
+  if (tab) tab.classList.add('active');
 }
 
-// ==================== افزودن فیلم ====================
+// ============ ویدیو ============
 function addVideo() {
   var title = document.getElementById('videoTitle').value.trim();
   var url = document.getElementById('videoUrl').value.trim();
@@ -427,8 +424,7 @@ function addVideo() {
 
   if (!title || !url) { notif('عنوان و لینک الزامی است', true); return; }
 
-  videos.push({ id: Date.now(), title: title, url: url, time: time, status: status,
-    date: new Date().toLocaleDateString('fa-IR') });
+  videos.push({ id: Date.now(), title: title, url: url, time: time, status: status });
   saveData();
 
   document.getElementById('videoTitle').value = '';
@@ -451,14 +447,16 @@ function deleteVideo(id) {
 
 function renderAdminVideos() {
   var box = document.getElementById('adminVideosList');
+  if (!box) return;
   if (videos.length === 0) { box.innerHTML = '<div class="empty">هنوز فیلمی اضافه نشده</div>'; return; }
   box.innerHTML = videos.map(function(v) {
-    return '<div class="admin-item"><div class="info"><h4>🎬 ' + v.title + '</h4><p>' + v.time + ' • ' + v.status + '</p></div><div class="actions"><button class="btn btn-small" onclick="playVideo(' + v.id + ')">▶ پخش</button><button class="btn btn-red btn-small" onclick="deleteVideo(' + v.id + ')">🗑️ حذف</button></div></div>';
+    return '<div class="admin-item"><div class="info"><h4>🎬 ' + v.title + '</h4><p>' + v.time + ' • ' + v.status + '</p></div><div class="actions"><button class="btn btn-red btn-small" onclick="deleteVideo(' + v.id + ')">🗑️ حذف</button></div></div>';
   }).join('');
 }
 
 function renderVideos() {
   var box = document.getElementById('videosList');
+  if (!box) return;
   if (videos.length === 0) { box.innerHTML = '<div class="empty">هنوز فیلمی اضافه نشده است</div>'; return; }
   box.innerHTML = videos.map(function(v) {
     return '<div class="video"><div class="thumb" onclick="playVideo(' + v.id + ')"><div class="mini">▶</div></div><div class="video-info"><h4>' + v.title + '</h4><div class="meta"><span>' + v.time + '</span><span class="green">' + v.status + '</span></div><button class="btn btn-small" style="width:100%;" onclick="playVideo(' + v.id + ')">▶ پخش</button></div></div>';
@@ -492,9 +490,10 @@ function closePlay() {
   document.getElementById('playerArea').innerHTML = '';
 }
 
-// ==================== کارنامه ====================
+// ============ کارنامه ============
 function addGradeRow() {
   var c = document.getElementById('gradesContainer');
+  if (!c) return;
   var row = document.createElement('div');
   row.className = 'grade-form-row';
   row.innerHTML = '<input type="text" class="grade-subject" placeholder="نام درس" /><input type="number" class="grade-score" placeholder="نمره" min="0" max="20" />';
@@ -520,7 +519,7 @@ function addReport() {
   var avg = (subjects.reduce(function(s, x) { return s + x.score; }, 0) / subjects.length).toFixed(2);
 
   reports.push({ id: Date.now(), name: name, code: code, grade: grade, cls: cls,
-    subjects: subjects, avg: avg, date: new Date().toLocaleDateString('fa-IR') });
+    subjects: subjects, avg: avg });
   saveData();
 
   document.getElementById('studentName').value = '';
@@ -542,6 +541,7 @@ function deleteReport(id) {
 
 function renderAdminReports() {
   var box = document.getElementById('adminReportsList');
+  if (!box) return;
   if (reports.length === 0) { box.innerHTML = '<div class="empty">هنوز کارنامه‌ای ثبت نشده</div>'; return; }
   box.innerHTML = reports.map(function(r) {
     return '<div class="admin-item"><div class="info"><h4>👤 ' + r.name + '</h4><p>کد ملی: ' + r.code + ' • معدل: ' + r.avg + '</p></div><div class="actions"><button class="btn btn-red btn-small" onclick="deleteReport(' + r.id + ')">🗑️ حذف</button></div></div>';
@@ -565,20 +565,55 @@ function searchReport() {
   notif('✅ کارنامه پیدا شد');
 }
 
-// ==================== بستن مودال ====================
-document.querySelectorAll('.modal').forEach(function(m) {
-  m.addEventListener('click', function(e) {
-    if (e.target === this) {
-      this.classList.remove('show');
-      document.getElementById('playerArea').innerHTML = '';
-    }
-  });
-});
+// ============ اتصال دکمه‌ها با addEventListener ============
+window.addEventListener('DOMContentLoaded', function() {
+  // نوار بالا
+  document.getElementById('nav-home').addEventListener('click', function() { scrollToSection('home'); });
+  document.getElementById('nav-videos').addEventListener('click', function() { scrollToSection('videos'); });
+  document.getElementById('nav-report').addEventListener('click', function() { scrollToSection('report'); });
+  document.getElementById('btn-login').addEventListener('click', openLogin);
 
-// ==================== اجرا ====================
-renderVideos();
-renderAdminVideos();
-renderAdminReports();
+  // صفحه اصلی
+  document.getElementById('btn-videos').addEventListener('click', function() { scrollToSection('videos'); });
+  document.getElementById('btn-report').addEventListener('click', function() { scrollToSection('report'); });
+
+  // کارنامه
+  document.getElementById('btn-search').addEventListener('click', searchReport);
+
+  // پنل مدیر
+  document.getElementById('btn-logout').addEventListener('click', logout);
+  document.getElementById('tab-btn-videos').addEventListener('click', function() { switchTab('tab-videos', this); });
+  document.getElementById('tab-btn-reports').addEventListener('click', function() { switchTab('tab-reports', this); });
+  document.getElementById('btn-add-video').addEventListener('click', addVideo);
+  document.getElementById('btn-add-grade').addEventListener('click', addGradeRow);
+  document.getElementById('btn-add-report').addEventListener('click', addReport);
+
+  // مودال ورود
+  document.getElementById('btn-cancel-login').addEventListener('click', closeLogin);
+  document.getElementById('btn-check-login').addEventListener('click', checkLogin);
+  document.getElementById('adminPass').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') checkLogin();
+  });
+
+  // مودال پخش
+  document.getElementById('btn-close-play').addEventListener('click', closePlay);
+
+  // بستن مودال با کلیک بیرون
+  document.querySelectorAll('.modal').forEach(function(m) {
+    m.addEventListener('click', function(e) {
+      if (e.target === this) {
+        this.classList.remove('show');
+        var pa = document.getElementById('playerArea');
+        if (pa) pa.innerHTML = '';
+      }
+    });
+  });
+
+  // رندر اولیه
+  renderVideos();
+  renderAdminVideos();
+  renderAdminReports();
+});
 </script>
 
 </body>
